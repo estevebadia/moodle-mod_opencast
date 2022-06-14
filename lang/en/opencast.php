@@ -309,4 +309,9 @@ $string['pubchannel_annotate'] = 'Publication channel for annotation system';
 $string['thumbnail_flavors'] = 'Video thumbnail flavors';
 $string['use_ipaddr_restriction'] = 'Use IP address restriction';
 $string['use_ipaddr_restriction_desc'] = 'Use IP address restriction to further protect videos links. Test thoroughly if users access Moodle via a reverse proxy. Disable this if you encounter issues.';
-
+$string['disable_opencast'] = 'Disable opencast';
+$string['disable_activity_settings'] = 'Disable opencast activities';
+$string['disable_activity_settings_description'] = 'If checked, teachers won\'t be able to change existing opencast activity settings.';
+$string['disable_activity_settings_message'] = 'Message';
+$string['disable_activity_settings_message_description'] = 'This text will be shown to teachers when trying to edit opencast activity settings.';
+$string['disable_activity_settings_message_default'] = 'Opencast activities have been deprecated and all settings are disabled. Please use the new Video Gallery activity instead.';

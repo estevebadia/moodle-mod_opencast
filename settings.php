@@ -108,5 +108,16 @@ if ($ADMIN->fulltree) {
             get_string('use_ipaddr_restriction', 'opencast'),
             get_string('use_ipaddr_restriction_desc', 'opencast'), '1'));
 
+    $settings->add(new admin_setting_heading('opencast/disable', get_string('disable_opencast', 'opencast'), ''));
+
+    $settings->add(new admin_setting_configcheckbox('opencast/disable_activity_settings',
+            get_string('disable_activity_settings', 'opencast'),
+            get_string('disable_activity_settings_description', 'opencast'), '0'));
+
+    $settings->add(new admin_setting_configtextarea('opencast/disable_activity_settings_message',
+            get_string('disable_activity_settings_message', 'opencast'),
+            get_string('disable_activity_settings_message_description', 'opencast'),
+            get_string('disable_activity_settings_message_default', 'opencast')));
+
 }
 

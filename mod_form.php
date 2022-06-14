@@ -235,8 +235,35 @@ class mod_opencast_mod_form extends moodleform_mod {
             }
         }
 
+        // Disable all settings if this plugin is in disabled mode.
+        $disabled = get_config('opencast', 'disable_activity_settings');
+        if ($disabled) {
+            // Moodle does not offer a direct way to unconditionally disable fields,
+            // so disabling "depending" on a hidden static field.
+            $mform->addElement('hidden', 'disabled', $disabled);
+            $mform->setType('disabled', PARAM_INT);
+            $elements = ['channelnew', 'ext_id', 'newchannelname', 'allow_annotations', 'is_ivt', 'inviting', 'userupload', 'userupload_maxfilesize'];
+            foreach ($elements as $name) {
+                if ($mform->elementExists($name)) {
+                    $mform->disabledIf($name, 'disabled', 'eq', '1');
+                }
+            }
+            $message = get_config('opencast', 'disable_activity_settings_message');
+            $msg_elem = $mform->createElement('html', html_writer::tag('p', $message, ['class' => 'notify']));
+            if ($mform->elementExists('channelnew')) {
+                $mform->insertElementBefore($msg_elem, 'channelnew');
+            } else {
+                $mform->addElement($msg_elem);
+            }
+
+        }
+
+
+
         $this->standard_coursemodule_elements();
         $this->add_action_buttons();
+
+
     }
 
     function data_preprocessing(&$default_values) {
