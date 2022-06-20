@@ -289,8 +289,10 @@ function opencast_extend_settings_navigation(settings_navigation $settings, navi
     $context = $PAGE->cm->context;
     $opencast = opencast_get_opencast($PAGE->cm->instance);
 
-    if (has_capability('mod/opencast:isproducer', $context)
-            || ($opencast->userupload && has_capability('mod/opencast:uploadclip', $context))) {
+    $disabled = (get_config('opencast', 'disable_activity_settings') == '1');
+
+    if (!$disabled && (has_capability('mod/opencast:isproducer', $context)
+            || ($opencast->userupload && has_capability('mod/opencast:uploadclip', $context)))) {
         $opencastnode->add(get_string('upload_clip', 'opencast'),
                 new \moodle_url('/mod/opencast/upload_event.php?id=' . $cmid));
     }
@@ -298,7 +300,7 @@ function opencast_extend_settings_navigation(settings_navigation $settings, navi
         $opencastnode->add(get_string('view_useruploads', 'opencast'),
                 new \moodle_url('/mod/opencast/uploads.php?id=' . $cmid));
     }
-    if (has_capability('mod/opencast:isproducer', $context)) {
+    if (!$disabled && has_capability('mod/opencast:isproducer', $context)) {
         $sc_obj = new mod_opencast_series();
         $sc_obj->fetch($opencast->id);
         $opencastnode->add(get_string('edit_at_switch', 'opencast'), new \moodle_url($sc_obj->getEditLink()));
